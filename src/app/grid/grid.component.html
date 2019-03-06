@@ -1,0 +1,25 @@
+<div id="emp-table">
+
+	<div id="emp-header">
+
+		<div class="emp-header-cell" *ngFor="let col of gridColumns">
+			{{col}}
+		</div>
+
+	</div>
+
+	<div id="emp-body">
+
+		<div class="emp-body-row" *ngFor="let data of gridData">
+
+			<div class="emp-body-cell" *ngFor="let key of gridKeys">
+
+				<input [(ngModel)]="data[key]" (blur)="update(data)" [ngClass]="classes">
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
