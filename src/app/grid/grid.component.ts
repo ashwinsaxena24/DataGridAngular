@@ -11,8 +11,14 @@ export class GridComponent implements OnInit {
 	gridColumns = new Array<object>();
 	gridData = new Array<object>();
 	gridKeys = new Array<object>();
+	gridIdColumn = -1;
 
 	classes: {};
+
+	@Input('grid-id')
+	set setGridIdColumn(value: number) {
+		this.gridIdColumn = value;
+	}
 
 	@Input('grid-cols')
 	set setGridColumns(value: Array<object>) {

@@ -12,26 +12,23 @@ export class PersonComponent implements OnInit {
 	data = new Array<Person>();
 	columns = ['Id', 'First Name', 'Last Name', 'Email'];
 	keys = ['id', 'first_name', 'last_name', 'email'];
+	id = 0;
 
 	constructor(private saveService: SaveService) {}
 
 	ngOnInit() {
 		this.getData();
-		// this.data = [{
-		// 	id: 1,
-		// 	first_name: 'bruce',
-		// 	last_name: 'wayne',
-		// 	email: 'imbatman@wayneenterprises.com'
-		// }];
 	}
 
 	getData() {
-		this.saveService.getData().subscribe(persons => {
-			this.data = persons;
-		}, err => console.error(err));
+		this.saveService.getData().subscribe(persons => this.data = persons, err => console.error(err));
 	}
 
 	update(event: Person) {
 		console.log(event);
+		this.saveService.saveData(event).subscribe(
+			() => console.log(`${event.first_name} saved`),
+			() => console.error('error in saving ' + event)
+			);
 	}
 }

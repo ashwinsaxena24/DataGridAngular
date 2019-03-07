@@ -1,25 +1,32 @@
-<div id="emp-table">
+<ng-container *ngIf="gridData.length">
+	<div id="emp-table">
 
-	<div id="emp-header">
+		<div id="emp-header">
 
-		<div class="emp-header-cell" *ngFor="let col of gridColumns">
-			{{col}}
+			<div class="emp-header-cell" *ngFor="let col of gridColumns; let i = index">
+				<ng-container *ngIf="true">
+					{{col}}
+				</ng-container>
+			</div>
+
 		</div>
 
-	</div>
+		<div id="emp-body">
 
-	<div id="emp-body">
+			<div class="emp-body-row" *ngFor="let data of gridData">
 
-		<div class="emp-body-row" *ngFor="let data of gridData">
-
-			<div class="emp-body-cell" *ngFor="let key of gridKeys">
-
-				<input [(ngModel)]="data[key]" (blur)="update(data)" [ngClass]="classes">
+				<div class="emp-body-cell" *ngFor="let key of gridKeys; let i = index">
+					<ng-container *ngIf="(i != gridIdColumn) else noEdit">
+						<input [(ngModel)]="data[key]" (blur)="update(data)" [ngClass]="classes">
+					</ng-container>
+					<ng-template #noEdit>
+						{{data[key]}}
+					</ng-template>
+				</div>
 
 			</div>
 
 		</div>
 
 	</div>
-
-</div>
+</ng-container>

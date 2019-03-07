@@ -19,4 +19,9 @@ export class SaveService {
 	getData(): Observable<Person[]> {
 		return this.http.get<Person[]>(this.url);
 	}
+
+	saveData(person: Person): Observable<Person> {
+		console.dir(person);
+		return this.http.put<Person>(this.url, person, httpOptions);
+	}
 }
