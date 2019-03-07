@@ -19,7 +19,7 @@ import {PersonMemoryService} from './person-memory.service';
 		BrowserModule,
 		FormsModule,
 		HttpClientModule,
-		HttpClientInMemoryWebApiModule.forRoot(PersonMemoryService, {dataEncapsulation: true})
+		HttpClientInMemoryWebApiModule.forRoot(PersonMemoryService, {dataEncapsulation: false})
 	],
 	providers: [],
 	bootstrap: [AppComponent]

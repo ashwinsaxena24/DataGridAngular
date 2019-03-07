@@ -1,3 +1,4 @@
+// tslint:disable: object-literal-key-quotes
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,9 +8,9 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class GridComponent implements OnInit {
 
-	gridColumns: Array<object>;
-	gridData: Array<object>;
-	gridKeys: Array<object>;
+	gridColumns = new Array<object>();
+	gridData = new Array<object>();
+	gridKeys = new Array<object>();
 
 	classes: {};
 
@@ -33,8 +34,8 @@ export class GridComponent implements OnInit {
 
 	constructor() {
 		this.classes = {
-			// tslint:disable-next-line: object-literal-key-quotes
-			'transparent': true
+			'transparent': true,
+			'expand': true
 		};
 	}
 

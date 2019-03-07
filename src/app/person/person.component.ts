@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Person} from '../person';
+import {SaveService} from '../save.service';
 
 @Component({
 	selector: 'app-person',
@@ -7,18 +9,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonComponent implements OnInit {
 
-	data: any;
-	constructor() {
-		this.data = [
-			{id: 1, name: 'Batman'},
-			{id: 2, name: 'Iron Man'},
-			{id: 3, name: 'Spider-Man'}
-		];
-	 }
+	data = new Array<Person>();
+	columns = ['Id', 'First Name', 'Last Name', 'Email'];
+	keys = ['id', 'first_name', 'last_name', 'email'];
+
+	constructor(private saveService: SaveService) {}
 
 	ngOnInit() {
+		this.getData();
+		// this.data = [{
+		// 	id: 1,
+		// 	first_name: 'bruce',
+		// 	last_name: 'wayne',
+		// 	email: 'imbatman@wayneenterprises.com'
+		// }];
 	}
 
-	update(event: any) {
+	getData() {
+		this.saveService.getData().subscribe(persons => {
+			this.data = persons;
+		}, err => console.error(err));
+	}
+
+	update(event: Person) {
+		console.log(event);
 	}
 }
