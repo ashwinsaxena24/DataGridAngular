@@ -1,17 +1,29 @@
+// tslint:disable: object-literal-key-quotes quotemark
 import { Injectable } from '@angular/core';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { InMemoryDbService, RequestInfo } from 'angular-in-memory-web-api';
+import { Person } from './person';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PersonMemoryService extends InMemoryDbService {
 
+	localData: any;
 	createDb() {
-		const local = window.localStorage.getItem('person');
-		let persons: {};
+		const persons = this.getLocalData();
+		this.localData = persons;
+		return { persons };
+	}
 
-		// if (typeof local === 'undefined') {
-			persons = [
+	getLocalData() {
+		const local = window.localStorage.getItem('data');
+		console.log(typeof local);
+		let data: {};
+		if (typeof local !== 'undefined') {
+			data = JSON.parse(local);
+			console.dir(data);
+		} else {
+			data = [
 				{
 					"id": 1,
 					"first_name": "Glori",
@@ -163,9 +175,18 @@ export class PersonMemoryService extends InMemoryDbService {
 					"email": "ebigbyo@admin.ch"
 				}
 			];
-		// } else {
-		// 	persons = JSON.parse(JSON.stringify(local));
-		// }
-		return { persons };
+			window.localStorage.setItem('data', JSON.stringify(data));
+		}
+		return data;
+	}
+
+	put(info: RequestInfo) {
+		const newData: Person = JSON.parse(JSON.stringify(info.req.body));
+		for (let i = 0; i < this.localData.length; i++) {
+			if (this.localData[i].id === newData.id) {
+				this.localData[i] = newData;
+			}
+		}
+		window.localStorage.setItem('data', JSON.stringify(this.localData));
 	}
 }

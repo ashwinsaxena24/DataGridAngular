@@ -69,6 +69,7 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "indent": [true, "tabs", 4]
+    "indent": [true, "tabs", 4],
+    "prefer-for-of": false
   }
 }
